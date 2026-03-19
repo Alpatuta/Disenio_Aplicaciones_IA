@@ -1,15 +1,10 @@
 package uy.edu.ort.servicioControlAcceso.model;
 import java.util.Date;
 
+import lombok.Getter;
+
 public class Acceso {
-    private Date entrada;
-    private Date salida;
+    @Getter private Date entrada;
+    @Getter private Date salida;
 
-    public Date getEntrada() {
-        return entrada;
-    }
-
-    public Date getSalida() {
-        return salida;
-    }
 }

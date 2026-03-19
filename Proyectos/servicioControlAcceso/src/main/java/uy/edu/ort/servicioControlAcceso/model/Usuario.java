@@ -2,27 +2,13 @@ package uy.edu.ort.servicioControlAcceso.model;
 
 import java.util.ArrayList;
 
+import lombok.Getter;
+
 public class Usuario {
-    private String userName;
-    private String nombre;
-    private String apellido;
-    private boolean habilitado;
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }   
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public boolean habilitado(){
-        return habilitado;
-    }
+    @Getter private String userName;
+    @Getter private String nombre;
+    @Getter private String apellido;
+    @Getter private boolean habilitado;
 
     public ArrayList<Acceso> getAccesos() {
         return null;
