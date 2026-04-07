@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contador</title>
+   
+    <link rel="stylesheet" href="contador-color.css"> 
+</head>
+<body>
+  <script src="/utilesVista.js"></script>
+  <div class="counter-container">
+    <div id="display" class="display">0</div>
+    <div class="buttons">
+        <button class="sumar" id="btnSumar">+ Sumar</button>
+      <button class="restar" id="btnRestar">- Restar</button>
+      
+    </div>
+  </div>
+
+   <script type = "module">
+
+       import CommandDispatcher from '/CommandDispatcher.js';
+          
+        // Crear vista y configurarla
+        const viewConfig = CommandDispatcher.registerView('contador', {
+            urlInicio: '/contador/vistaConectada'
+         });
+        
+        // Marcar handlers
+        viewConfig.handler('valor', (valor) => {
+            document.getElementById('display').textContent = valor;
+        });
+        viewConfig.handler('mensaje', (texto) => {
+            mostrarMensaje(texto);
+        });
+        // Capturo eventos de click de los botones y teclas
+        
+        document.addEventListener('keydown', (event) => {
+        if (event.key === '+' || event.code === 'NumpadAdd') {
+          CommandDispatcher.submit("/contador/sumar");
+        } else if (event.key === '-' || event.code === 'NumpadSubtract') {
+          CommandDispatcher.submit("/contador/restar");
+        }
+      });
+       document.getElementById('btnSumar').addEventListener('click', () => {
+         mostrarMensaje("Use las teclas de + y -");
+       });
+       document.getElementById('btnRestar').addEventListener('click', () => {
+          mostrarMensaje("Use las teclas de + y -");
+      });
+
+      //Inicio la vista
+      CommandDispatcher.startView(viewConfig);
+        
+      
+    </script>
+</body>
+</html>

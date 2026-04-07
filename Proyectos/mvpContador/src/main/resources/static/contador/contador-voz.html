@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contador Sobrio - Con Voz Simple</title>
+  
+   <script src="/vozSimple.js"></script>
+    <link rel="stylesheet" href="contador-voz.css"> 
+</head>
+<body>
+  <script src="/utilesVista.js"></script>
+  <div class="counter-container">
+    <h1 class="title">Contador con Voz</h1>
+    <div id="display" class="display">0</div>
+    <div class="controls">
+      <select id="operacion" class="operation-select">
+        <option value="sumar">Sumar</option>
+        <option value="restar">Restar</option>
+      </select>
+      <button class="execute-btn" id="btnEjecutar">Ejecutar</button>
+    </div>
+  </div>
+
+   <script type = "module">
+
+       import CommandDispatcher from '/CommandDispatcher.js';
+          
+        // Crear vista y configurarla
+        const viewConfig = CommandDispatcher.registerView('contador', {
+            urlInicio: '/contador/vistaConectada'
+         });
+        
+        // Marcar handlers
+        viewConfig.handler('valor', (valor) => {
+            document.getElementById('display').textContent = valor;
+             VozSimple.hablar(valor.toString());
+        });
+        viewConfig.handler('mensaje', (texto) => {
+           VozSimple.hablar(texto);
+            
+        });
+      
+       document.getElementById('btnEjecutar').addEventListener('click', () => {
+           const operacion = document.getElementById('operacion').value;
+      
+            if (operacion === 'sumar') {
+                CommandDispatcher.submit("/contador/sumar");
+             } else if (operacion === 'restar') {
+                 CommandDispatcher.submit("/contador/restar");
+            }
+       });
+     
+
+      //Inicio la vista
+      CommandDispatcher.startView(viewConfig);
+        
+      
+    </script>
+
+  <script>
+   
+    function ejecutarOperacion() {
+    
+    }
+    
+    function mostrar_valor(valor){
+        document.getElementById('display').textContent = valor;
+        // Usar la librería VozSimple
+        VozSimple.hablar(valor.toString());
+    }
+    
+    function mostrar_mensaje(mensaje){
+        // Usar la librería VozSimple
+        VozSimple.hablar(mensaje);
+    }
+
+      
+    </script>
+</body>
+</html>

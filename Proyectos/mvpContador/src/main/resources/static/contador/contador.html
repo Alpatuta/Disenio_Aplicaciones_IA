@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contador - Versión Sobria</title>
+  <link rel="stylesheet" href="contador.css"> 
+</head>
+<body>
+  <script src="/utilesVista.js"></script>
+  <div class="counter-container">
+    <h1 class="title">Contador</h1>
+    <div id="display" class="display">0</div>
+    <div class="buttons">
+        
+      <button class="sumar" id="btnSumar">+ Sumar</button>
+      <button class="restar" id="btnRestar">- Restar</button>
+    </div>
+  </div>
+  <script type = "module">
+
+       import CommandDispatcher from '/CommandDispatcher.js';
+          
+        // Crear vista y configurarla
+        const viewConfig = CommandDispatcher.registerView('contador', {
+            urlInicio: '/contador/vistaConectada'
+         });
+        
+        // Marcar handlers
+        viewConfig.handler('valor', (valor) => {
+            document.getElementById('display').textContent = valor;
+        });
+        viewConfig.handler('mensaje', (texto) => {
+            mostrarMensaje(texto);
+        });
+        // Capturo eventos de click de los botones
+       document.getElementById('btnSumar').addEventListener('click', () => {
+         CommandDispatcher.submit("/contador/sumar");
+       });
+       document.getElementById('btnRestar').addEventListener('click', () => {
+          CommandDispatcher.submit("/contador/restar");
+      });
+
+      //Inicio la vista
+      CommandDispatcher.startView(viewConfig);
+        
+      
+    </script>
+</body>
+</html>

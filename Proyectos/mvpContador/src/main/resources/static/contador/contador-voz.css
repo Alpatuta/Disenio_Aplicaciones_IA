@@ -1,0 +1,190 @@
+/*
+Contador Sobrio con Voz - Estilo Minimalista
+Diseño profesional con controles de voz
+*/
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #f5f5f5;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    color: #333;
+    line-height: 1.6;
+}
+
+.counter-container {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 50px 40px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    max-width: 450px;
+    width: 90%;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: 300;
+    color: #666;
+    margin-bottom: 30px;
+    letter-spacing: 1px;
+}
+
+.display {
+    font-size: 56px;
+    font-weight: 200;
+    background-color: #fafafa;
+    color: #333;
+    padding: 25px 30px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    margin-bottom: 40px;
+    user-select: none;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 2px;
+    position: relative;
+}
+
+.display::after {
+    content: "🔊";
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 16px;
+    opacity: 0.5;
+}
+
+.controls {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.operation-select {
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #ffffff;
+    color: #555;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    outline: none;
+    min-width: 120px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.operation-select:hover {
+    border-color: #bbb;
+    background-color: #f8f8f8;
+}
+
+.operation-select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.execute-btn {
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 500;
+    border: 1px solid #007bff;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background-color: #ffffff;
+    color: #007bff;
+    min-width: 120px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    outline: none;
+}
+
+.execute-btn:hover {
+    background-color: #007bff;
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 5px rgba(0, 123, 255, 0.3);
+}
+
+.execute-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 2px rgba(0, 123, 255, 0.2);
+}
+
+/* Animación para el icono de sonido cuando se reproduce */
+@keyframes soundWave {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.2); opacity: 0.8; }
+}
+
+.display.speaking::after {
+    animation: soundWave 1s ease-in-out infinite;
+    color: #007bff;
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+    .counter-container {
+        padding: 30px 20px;
+    }
+    
+    .display {
+        font-size: 42px;
+        padding: 20px 25px;
+    }
+    
+    .controls {
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+    }
+    
+    .operation-select,
+    .execute-btn {
+        width: 100%;
+    }
+}
+
+/* Estilos para diferentes estados del selector */
+.operation-select option[value="sumar"] {
+    color: #28a745;
+}
+
+.operation-select option[value="restar"] {
+    color: #dc3545;
+}
+
+/* Indicador visual cuando se está ejecutando una operación */
+.execute-btn.loading {
+    opacity: 0.7;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.execute-btn.loading::after {
+    content: "...";
+    animation: dots 1s infinite;
+}
+
+@keyframes dots {
+    0%, 20% { content: "..."; }
+    40% { content: ".."; }
+    60% { content: "."; }
+    80%, 100% { content: ""; }
+}
