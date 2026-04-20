@@ -6,6 +6,9 @@ import java.util.Collection;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/numeros")
@@ -21,11 +24,7 @@ public class NumeroPresenter {
 		return Commands.create(crearComandoFaltan());
 	}
 
-	/**
-	 * modelo.iniciar(cantidadAIngresar)
-	 * 
-	 * 
-	 */
+	@PostMapping("iniciar")
 	public Commands iniciar(int cantidadAIngresar) {
 		if (modelo.iniciar(cantidadAIngresar)) {
 			return Commands.create(crearComandoFaltan());
@@ -38,7 +37,8 @@ public class NumeroPresenter {
 		return new Command("faltan", modelo.getFaltan());
 	}
 
-	public Commands ingresarNumero(int numero) {
+	@PostMapping("ingresar")
+	public Commands ingresarNumero(@RequestParam int numero) {
 
 		modelo.agregar(numero);
 
