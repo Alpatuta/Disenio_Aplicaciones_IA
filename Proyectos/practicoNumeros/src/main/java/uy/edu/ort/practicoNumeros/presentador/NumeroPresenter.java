@@ -24,8 +24,8 @@ public class NumeroPresenter {
 		return Commands.create(crearComandoFaltan());
 	}
 
-	@PostMapping("iniciar")
-	public Commands iniciar(int cantidadAIngresar) {
+	@PostMapping("/iniciar")
+	public Commands iniciar(@RequestParam int cantidadAIngresar) {
 		if (modelo.iniciar(cantidadAIngresar)) {
 			return Commands.create(crearComandoFaltan());
 		} else {
@@ -37,7 +37,7 @@ public class NumeroPresenter {
 		return new Command("faltan", modelo.getFaltan());
 	}
 
-	@PostMapping("ingresar")
+	@PostMapping("/ingresar")
 	public Commands ingresarNumero(@RequestParam int numero) {
 
 		modelo.agregar(numero);
