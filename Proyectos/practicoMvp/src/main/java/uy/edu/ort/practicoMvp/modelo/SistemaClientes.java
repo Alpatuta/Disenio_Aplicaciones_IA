@@ -47,4 +47,8 @@ public class SistemaClientes {
     public ArrayList<Cliente> getClientes() {
         return clientes;
     }
+
+    public SistemaClientes getInstancia() {
+        return this;
+    }
 }

@@ -19,4 +19,8 @@ public class SistemaStock {
         productos.add(producto);
         return true;
     }
+
+    public SistemaStock getInstancia() {
+        return this;
+    }
 }

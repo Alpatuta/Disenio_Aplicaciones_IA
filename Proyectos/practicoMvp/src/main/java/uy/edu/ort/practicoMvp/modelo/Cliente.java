@@ -13,6 +13,9 @@ public class Cliente {
         this.email = email;
     }
 
+    public Cliente() {
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -38,19 +41,44 @@ public class Cliente {
     }
 
     public boolean validar() {
-        return verificarCedula(cedula) && verificarEmail() && verificarNombre();
+        return verificarCedula(cedula) && verificarEmail(email) && verificarNombre(nombre);
     }
 
-    private boolean verificarCedula(String cedula) {
+    public boolean verificarCedula(String cedula) {
+        // Verifco que la cedula sin guiones y puntos tenga entre 6 y 8 digiyos
+        // numericos
+        String cedulaSinGuionesYPuntos = cedula.replaceAll("[.-]", "");
+        if (cedulaSinGuionesYPuntos.length() < 6 || cedulaSinGuionesYPuntos.length() > 8) {
+            return false;
+        }
+
         return true;
     }
 
-    private boolean verificarEmail() {
+    public boolean verificarEmail(String email) {
+        boolean emailValido = emailValido(email);
+
+        if (email == null || email.isEmpty() || !emailValido) {
+            return false;
+        }
+
         return true;
     }
 
-    private boolean verificarNombre() {
+    private boolean emailValido(String email) {
+        // Verifico que el email tenga @ y .
+        return email.contains("@") && email.contains(".");
+    }
+
+    public boolean verificarNombre(String nombre) {
+        if (nombre == null || nombre.isEmpty()) {
+            return false;
+        }
         return true;
+    }
+
+    public String ToString() {
+        return "Cliente: " + nombre + " Email: " + email;
     }
 
 }
