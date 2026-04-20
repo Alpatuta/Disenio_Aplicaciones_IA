@@ -13,6 +13,9 @@ public class Producto {
         this.unidades = unidades;
     }
 
+    public Producto() {
+    }
+
     public String getNombre() {
         return nombre;
     }
