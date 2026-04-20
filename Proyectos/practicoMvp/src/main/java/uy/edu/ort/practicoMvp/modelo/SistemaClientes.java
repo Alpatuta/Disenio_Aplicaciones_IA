@@ -3,7 +3,12 @@ package uy.edu.ort.practicoMvp.modelo;
 import java.util.ArrayList;
 
 public class SistemaClientes {
+    private static final SistemaClientes instancia = new SistemaClientes();
     private ArrayList<Cliente> clientes;
+
+    private SistemaClientes() {
+        this.clientes = new ArrayList<Cliente>();
+    }
 
     public ArrayList<Cliente> clientesNoCompraronProductoMenorPrecio() {
         return new ArrayList<Cliente>();
@@ -48,7 +53,7 @@ public class SistemaClientes {
         return clientes;
     }
 
-    public SistemaClientes getInstancia() {
-        return this;
+    public static SistemaClientes getInstancia() {
+        return instancia;
     }
 }

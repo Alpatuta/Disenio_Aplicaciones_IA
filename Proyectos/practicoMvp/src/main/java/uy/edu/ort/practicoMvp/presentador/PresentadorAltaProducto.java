@@ -1,7 +1,22 @@
 package uy.edu.ort.practicoMvp.presentador;
 
+import org.springframework.web.bind.annotation.GetMapping;
+
 import uy.edu.ort.practicoMvp.modelo.SistemaStock;
 
 public class PresentadorAltaProducto {
-    private SistemaStock sistemaStock = new SistemaStock();
+    private SistemaStock sistemaStock = SistemaStock.getInstancia();
+
+    @GetMapping("/mostrarProductosYProveedores")
+    public Commands mostrarProductosYProveedores() {
+        return Commands.create(mostrarProductos(), mostrarProveedores());
+    }
+
+    public Command mostrarProductos() {
+        return new Command("OK", sistemaStock.getProductos());
+    }
+
+    public Command mostrarProveedores() {
+        return new Command("OK", sistemaStock.getProveedores());
+    }
 }

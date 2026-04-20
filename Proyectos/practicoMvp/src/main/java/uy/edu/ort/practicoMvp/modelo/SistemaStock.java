@@ -3,6 +3,8 @@ package uy.edu.ort.practicoMvp.modelo;
 import java.util.ArrayList;
 
 public class SistemaStock {
+    private static final SistemaStock instancia = new SistemaStock();
+
     private ArrayList<Producto> productos;
 
     private ArrayList<Proveedor> proveedores;
@@ -20,7 +22,15 @@ public class SistemaStock {
         return true;
     }
 
-    public SistemaStock getInstancia() {
-        return this;
+    public ArrayList<Producto> getProductos() {
+        return productos;
+    }
+
+    public ArrayList<Proveedor> getProveedores() {
+        return proveedores;
+    }
+
+    public static SistemaStock getInstancia() {
+        return instancia;
     }
 }

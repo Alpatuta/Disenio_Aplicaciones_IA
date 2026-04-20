@@ -7,7 +7,7 @@ import uy.edu.ort.practicoMvp.modelo.Cliente;
 import uy.edu.ort.practicoMvp.modelo.SistemaClientes;
 
 public class PresentadorAltaCliente {
-    private final SistemaClientes sc = new SistemaClientes();
+    private SistemaClientes sc = SistemaClientes.getInstancia();
 
     @GetMapping("/mostrarClientes")
     public Commands mostrarClientes() {
