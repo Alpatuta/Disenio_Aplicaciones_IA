@@ -4,19 +4,21 @@ import uy.edu.ort.practicoNumeros.modelo.LogicaNumeros;
 import java.util.Collection;
 
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
 @RequestMapping("/numeros")
 public class NumeroPresenter {
 
-	private LogicaNumeros logicaNumeros;
+	private final LogicaNumeros modelo = new LogicaNumeros();
 
 	/**
 	 * //Retorna modelo.getFaltan()
 	 */
-	public Collection<Commando> vistaConectada() {
-		return null;
+	@GetMapping("vistaConectada")
+	public Commands vistaConectada() {
+		return Commands.create(crearComandoFaltan());
 	}
 
 	/**
@@ -24,24 +26,41 @@ public class NumeroPresenter {
 	 * 
 	 *  
 	 */
-	public Collection<Commando> iniciar(int cantidadAIngresar) {
-		return null;
+	public Commands iniciar(int cantidadAIngresar) {
+		if(modelo.iniciar(cantidadAIngresar)) {
+			return Commands.create(crearComandoFaltan());
+		}else {
+			return Commands.create(mostrarMensaje("No se pudo iniciar el proceso"));
+		}
 	}
 
-	/**
-	 * modelo.agregar(numero);
-	 * 
-	 * if(modelo.hayResultado){
-	 * //Mostrar proceso finalizado
-	 * }else{
-	 * //Mostrar cuantos faltan ingresar
-	 * (modelo.faltan())
-	 * }
-	 * 
-	 *  
-	 */
-	public Collection<Commando> ingresarNumero(int numero) {
-		return null;
+	private Command crearComandoFaltan() {
+		return new Command("faltan", modelo.getFaltan());
+	}
+
+
+	public Commands ingresarNumero(int numero) {
+			
+	 modelo.agregar(numero);
+	  
+	  if(modelo.hayResultado()){
+	  	//Mostrar proceso finalizado
+		Collection<Integer> resultado = modelo.getResultado();
+	  	return Commands.create(resultado(), mostrarMensaje("Proceso finalizado"));
+	  }else{
+	  	//Mostrar cuantos faltan ingresar
+	  	return Commands.create(crearComandoFaltan());
+	  }
+		
+	}
+
+	private Command mostrarMensaje(String mensaje) {
+		return new Command("mostrar mensaje", mensaje);
+	}
+
+	private Command resultado() {
+		Collection<Integer> resultado = modelo.getResultado();
+		return new Command("resultado", resultado);
 	}
 
 }

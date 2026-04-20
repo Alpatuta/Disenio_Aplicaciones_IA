@@ -7,16 +7,16 @@ package uy.edu.ort.practicoNumeros.presentador;
  * Antes llamado "Respuesta" - renombrado para reflejar mejor su propósito
  * como parte del patrón Command.
  */
-public class Commando {
+public class Command {
     private String id;
     private Object parametro;
 
-    public Commando(String id, Object parametro) {
+    public Command(String id, Object parametro) {
         this.id = id;
         this.parametro = parametro;
     }
 
-    public Commando() {
+    public Command() {
     }
 
     public String getId() {
