@@ -33,4 +33,5 @@ public class SistemaStock {
     public static SistemaStock getInstancia() {
         return instancia;
     }
+
 }

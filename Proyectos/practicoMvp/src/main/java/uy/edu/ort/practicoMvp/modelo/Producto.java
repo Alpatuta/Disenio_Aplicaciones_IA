@@ -7,10 +7,13 @@ public class Producto {
 
     private int unidades;
 
-    public Producto(String nombre, int precio, int unidades) {
+    private Proveedor proveedor;
+
+    public Producto(String nombre, int precio, int unidades, Proveedor proveedor) {
         this.nombre = nombre;
         this.precio = precio;
         this.unidades = unidades;
+        this.proveedor = proveedor;
     }
 
     public Producto() {
@@ -38,6 +41,19 @@ public class Producto {
 
     public void setUnidades(int unidades) {
         this.unidades = unidades;
+    }
+
+    public Proveedor getProveedor() {
+        return proveedor;
+    }
+
+    public void setProveedor(Proveedor proveedor) {
+        this.proveedor = proveedor;
+    }
+
+    public String toString() {
+        return "Producto: " + nombre + ", Precio: " + precio + ", Unidades: " + unidades + ", Proveedor: "
+                + proveedor.getNombre();
     }
 
 }

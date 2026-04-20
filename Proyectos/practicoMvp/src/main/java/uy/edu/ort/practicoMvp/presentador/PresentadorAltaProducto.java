@@ -12,11 +12,11 @@ public class PresentadorAltaProducto {
         return Commands.create(mostrarProductos(), mostrarProveedores());
     }
 
-    public Command mostrarProductos() {
-        return new Command("OK", sistemaStock.getProductos());
+    private Command mostrarProductos() {
+        return new Command("OK", sistemaStock.getProductos().toString());
     }
 
-    public Command mostrarProveedores() {
-        return new Command("OK", sistemaStock.getProveedores());
+    private Command mostrarProveedores() {
+        return new Command("OK", sistemaStock.getProveedores().toString());
     }
 }

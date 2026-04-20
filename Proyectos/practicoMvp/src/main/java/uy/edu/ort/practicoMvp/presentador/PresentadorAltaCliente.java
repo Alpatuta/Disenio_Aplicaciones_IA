@@ -14,16 +14,24 @@ public class PresentadorAltaCliente {
         return Commands.create(new Command("OK", sc.getClientes()));
     }
 
-    @PostMapping("/altaCliente")
-    public Commands altaCliente(String cedula, String nombre, String email) {
+    @PostMapping("/altaClienteVerificarCedula")
+    public Cliente verificarCedula(String cedula) {
         Cliente c = new Cliente();
         if (!c.verificarCedula(cedula)) {
-            return Commands.create(mostrarMensaje("Cedula incorrecta"));
+            return null;
         } else if (!sc.existeCliente(cedula)) {
-            return Commands.create(mostrarMensaje("Cliente ya existe" + sc.buscarCliente(cedula).ToString()));
+
+            return null;
+        } else {
+            c.setCedula(cedula);
+            return c;
         }
 
-        c.setCedula(cedula);
+    }
+
+    @PostMapping("/altaCliente")
+    public Commands altaCliente(String nombre, String email) {
+        Cliente c = new Cliente();
 
         if (!c.verificarNombre(nombre) || !c.verificarEmail(email)) {
             return Commands.create(mostrarMensaje("Datos del cliente incorrectos"));
