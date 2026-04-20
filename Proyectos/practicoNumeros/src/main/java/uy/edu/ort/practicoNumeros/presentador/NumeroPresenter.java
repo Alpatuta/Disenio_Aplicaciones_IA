@@ -24,12 +24,12 @@ public class NumeroPresenter {
 	/**
 	 * modelo.iniciar(cantidadAIngresar)
 	 * 
-	 *  
+	 * 
 	 */
 	public Commands iniciar(int cantidadAIngresar) {
-		if(modelo.iniciar(cantidadAIngresar)) {
+		if (modelo.iniciar(cantidadAIngresar)) {
 			return Commands.create(crearComandoFaltan());
-		}else {
+		} else {
 			return Commands.create(mostrarMensaje("No se pudo iniciar el proceso"));
 		}
 	}
@@ -38,20 +38,18 @@ public class NumeroPresenter {
 		return new Command("faltan", modelo.getFaltan());
 	}
 
-
 	public Commands ingresarNumero(int numero) {
-			
-	 modelo.agregar(numero);
-	  
-	  if(modelo.hayResultado()){
-	  	//Mostrar proceso finalizado
-		Collection<Integer> resultado = modelo.getResultado();
-	  	return Commands.create(resultado(), mostrarMensaje("Proceso finalizado"));
-	  }else{
-	  	//Mostrar cuantos faltan ingresar
-	  	return Commands.create(crearComandoFaltan());
-	  }
-		
+
+		modelo.agregar(numero);
+
+		if (modelo.hayResultado()) {
+
+			return Commands.create(resultado(), mostrarMensaje("Proceso finalizado"));
+		} else {
+			// Mostrar cuantos faltan ingresar
+			return Commands.create(crearComandoFaltan());
+		}
+
 	}
 
 	private Command mostrarMensaje(String mensaje) {
