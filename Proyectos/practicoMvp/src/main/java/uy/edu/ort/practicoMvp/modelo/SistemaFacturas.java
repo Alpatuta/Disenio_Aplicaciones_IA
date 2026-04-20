@@ -13,4 +13,8 @@ public class SistemaFacturas {
     public boolean clienteComproProducto(Cliente c, Producto p) {
         return true;
     }
+
+    public ArrayList<Factura> getFacturas() {
+        return facturas;
+    }
 }

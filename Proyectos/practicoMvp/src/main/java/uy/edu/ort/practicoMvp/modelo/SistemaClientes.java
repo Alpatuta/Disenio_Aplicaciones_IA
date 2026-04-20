@@ -1,6 +1,5 @@
 package uy.edu.ort.practicoMvp.modelo;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class SistemaClientes {
