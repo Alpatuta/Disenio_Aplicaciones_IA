@@ -25,7 +25,7 @@ public class PresentadorAltaProducto {
     @PostMapping("/altaProductoVerificarNombre")
     public Commands verificarNombre(String nombre) {
         Producto p = new Producto();
-        boolean cumple = false;
+
         if (!p.verificarNombre(nombre)) {
             return Commands.create(mostrarMensaje("Nombre del producto incorrecto" + p.toString()));
         } else if (sistemaStock.existeProducto(nombre)) {
@@ -34,6 +34,8 @@ public class PresentadorAltaProducto {
             return Commands.create(mostrarMensaje("Nombre del producto válido"));
         }
     }
+
+    @PostMapping("/altaProducto")
 
     private Command mostrarMensaje(String mensaje) {
         return new Command("MENSAJE", mensaje);
