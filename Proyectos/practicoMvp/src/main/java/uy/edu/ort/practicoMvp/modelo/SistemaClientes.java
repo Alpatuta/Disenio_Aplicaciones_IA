@@ -6,7 +6,7 @@ public class SistemaClientes {
     private static final SistemaClientes instancia = new SistemaClientes();
     private ArrayList<Cliente> clientes;
 
-    private SistemaClientes() {
+    public SistemaClientes() {
         this.clientes = new ArrayList<Cliente>();
     }
 
