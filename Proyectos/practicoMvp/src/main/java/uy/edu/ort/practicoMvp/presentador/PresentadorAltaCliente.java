@@ -15,18 +15,17 @@ public class PresentadorAltaCliente {
     }
 
     @PostMapping("/altaClienteVerificarCedula")
-    public Cliente verificarCedula(String cedula) {
+    public Commands verificarCedula(String cedula) {
         Cliente c = new Cliente();
-        if (!c.verificarCedula(cedula)) {
-            return null;
-        } else if (!sc.existeCliente(cedula)) {
 
-            return null;
+        if (!c.verificarCedula(cedula)) {
+            return Commands.create(mostrarMensaje("Cédula del cliente incorrecta"));
+        } else if (sc.existeCliente(cedula)) {
+            return Commands.create(mostrarMensaje("El cliente ya existe"));
         } else {
             c.setCedula(cedula);
-            return c;
+            return Commands.create(mostrarMensaje("Cédula del cliente válida"));
         }
-
     }
 
     @PostMapping("/altaCliente")

@@ -34,4 +34,13 @@ public class SistemaStock {
         return instancia;
     }
 
+    public boolean existeProducto(String nombre) {
+        for (Producto p : productos) {
+            if (p.getNombre().equals(nombre)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

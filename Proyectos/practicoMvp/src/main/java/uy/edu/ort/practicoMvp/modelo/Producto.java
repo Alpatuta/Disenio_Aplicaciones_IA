@@ -56,4 +56,8 @@ public class Producto {
                 + proveedor.getNombre();
     }
 
+    public boolean verificarNombre(String nombre) {
+        return nombre != null && !nombre.isEmpty() && nombre.length() < 50;
+    }
+
 }
