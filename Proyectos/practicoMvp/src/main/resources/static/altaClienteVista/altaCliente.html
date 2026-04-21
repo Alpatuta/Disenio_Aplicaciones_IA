@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Alta de Cliente</title>
-  <link rel="stylesheet" href="altaCliente.css"/>
+  <link rel="stylesheet" href="altaCliente.css" />
 </head>
+
 <body>
 
   <h1>Alta de Cliente</h1>
@@ -17,24 +19,24 @@
     <!-- Cédula (siempre habilitada al inicio) -->
     <div class="campo">
       <label for="cedula">Cédula</label>
-      <input type="text" id="cedula" name="cedula" placeholder="Ej: 12345678" maxlength="12"/>
+      <input type="text" id="cedula" name="cedula" placeholder="Ej: 12345678" maxlength="12" />
     </div>
 
     <div class="acciones">
       <button id="btnValidarCedula" class="btn-primary" onclick="validarCedula()">Validar cédula</button>
     </div>
 
-    <hr class="separador"/>
+    <hr class="separador" />
 
     <!-- Nombre y email (deshabilitados al inicio) -->
     <div class="campo">
       <label for="nombre">Nombre</label>
-      <input type="text" id="nombre" name="nombre" placeholder="Nombre completo" disabled/>
+      <input type="text" id="nombre" name="nombre" placeholder="Nombre completo" disabled />
     </div>
 
     <div class="campo">
       <label for="email">Email</label>
-      <input type="email" id="email" name="email" placeholder="correo@ejemplo.com" disabled/>
+      <input type="email" id="email" name="email" placeholder="correo@ejemplo.com" disabled />
     </div>
 
     <div class="acciones">
@@ -45,29 +47,31 @@
   <!-- Tabla de clientes -->
   <div class="card-tabla">
     <h2>Clientes registrados</h2>
-    <div id="contenedorTabla"><p>Cargando clientes...</p></div>
+    <div id="contenedorTabla">
+      <p>Cargando clientes...</p>
+    </div>
   </div>
 
   <!-- Utiles de vista (diálogos) -->
-  <script src="utilesVista.js"></script>
+  <script src="../utilesVista.js"></script>
 
   <!-- CommandDispatcher como módulo -->
   <script type="module">
-    import dispatcher from './CommandDispatcher.js';
+    import dispatcher from '../CommandDispatcher.js';
     window._dispatcher = dispatcher;   // exponerlo para los onclick inline
 
     // ── Helpers de UI ─────────────────────────────────────────────────────────
 
     function habilitarFormularioCompleto(habilitar) {
-      document.getElementById('nombre').disabled   = !habilitar;
-      document.getElementById('email').disabled    = !habilitar;
+      document.getElementById('nombre').disabled = !habilitar;
+      document.getElementById('email').disabled = !habilitar;
       document.getElementById('btnGuardar').disabled = !habilitar;
     }
 
     function limpiarFormulario() {
-      document.getElementById('cedula').value  = '';
-      document.getElementById('nombre').value  = '';
-      document.getElementById('email').value   = '';
+      document.getElementById('cedula').value = '';
+      document.getElementById('nombre').value = '';
+      document.getElementById('email').value = '';
       habilitarFormularioCompleto(false);
     }
 
@@ -96,7 +100,7 @@
      */
     function handleCedulaExiste(cliente) {
       document.getElementById('nombre').value = cliente.nombre ?? '';
-      document.getElementById('email').value  = cliente.email  ?? '';
+      document.getElementById('email').value = cliente.email ?? '';
       // No habilitamos guardar
     }
 
@@ -111,39 +115,40 @@
 
     // ── Acciones del usuario (expuestas en window para los onclick) ────────────
 
-    window.validarCedula = function() {
+    window.validarCedula = function () {
       const cedula = document.getElementById('cedula').value.trim();
       // Limpiar campos antes de cada intento
       document.getElementById('nombre').value = '';
-      document.getElementById('email').value  = '';
+      document.getElementById('email').value = '';
       habilitarFormularioCompleto(false);
 
       _dispatcher.submit('/altaClienteVerificarCedula', { cedula });
     };
 
-    window.guardarCliente = function() {
+    window.guardarCliente = function () {
       const cedula = document.getElementById('cedula').value.trim();
       const nombre = document.getElementById('nombre').value.trim();
-      const email  = document.getElementById('email').value.trim();
+      const email = document.getElementById('email').value.trim();
       _dispatcher.submit('/altaCliente', { cedula, nombre, email });
     };
 
     // ── Configuración y arranque de la vista ───────────────────────────────────
 
     const view = _dispatcher.registerView('AltaCliente', {
-      urlInicio : '/mostrarClientes',
+      urlInicio: '/mostrarClientes',
       onException: (msg) => mostrarMensaje(msg)
     });
 
     // Comandos del backend
-    view.handler('OK',               mostrarClientes);
-    view.handler('MENSAJE',          handleMensaje);
-    view.handler('CEDULA_OK',        handleCedulaOk);
-    view.handler('CEDULA_EXISTE',    handleCedulaExiste);
+    view.handler('OK', mostrarClientes);
+    view.handler('MENSAJE', handleMensaje);
+    view.handler('CEDULA_OK', handleCedulaOk);
+    view.handler('CEDULA_EXISTE', handleCedulaExiste);
     view.handler('CLIENTE_AGREGADO', handleClienteAgregado);
 
     _dispatcher.startView(view);
   </script>
 
 </body>
+
 </html>
