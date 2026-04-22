@@ -43,4 +43,13 @@ public class SistemaStock {
         return false;
     }
 
+    public Proveedor getProveedorPorNombre(String nombre) {
+        for (Proveedor p : proveedores) {
+            if (p.getNombre().equals(nombre)) {
+                return p;
+            }
+        }
+        return null;
+    }
+
 }
