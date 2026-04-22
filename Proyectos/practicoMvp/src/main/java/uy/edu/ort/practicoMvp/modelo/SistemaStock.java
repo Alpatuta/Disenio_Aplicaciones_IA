@@ -9,15 +9,26 @@ public class SistemaStock {
 
     private ArrayList<Proveedor> proveedores;
 
+    public SistemaStock() {
+        this.productos = new ArrayList<>();
+        this.proveedores = new ArrayList<>();
+    }
+
     public Producto getProductoMenorPrecio() {
         return new Producto();
     }
 
     public void agregarProveedor(Proveedor proveedor) {
+        if (proveedor == null) {
+            return;
+        }
         proveedores.add(proveedor);
     }
 
     public boolean agregarProducto(Producto producto) {
+        if (producto == null) {
+            return false;
+        }
         productos.add(producto);
         return true;
     }
@@ -35,8 +46,11 @@ public class SistemaStock {
     }
 
     public boolean existeProducto(String nombre) {
+        if (nombre == null || productos == null) {
+            return false;
+        }
         for (Producto p : productos) {
-            if (p.getNombre().equals(nombre)) {
+            if (p != null && nombre.equals(p.getNombre())) {
                 return true;
             }
         }
@@ -44,8 +58,11 @@ public class SistemaStock {
     }
 
     public Proveedor getProveedorPorNombre(String nombre) {
+        if (nombre == null || proveedores == null) {
+            return null;
+        }
         for (Proveedor p : proveedores) {
-            if (p.getNombre().equals(nombre)) {
+            if (p != null && nombre.equals(p.getNombre())) {
                 return p;
             }
         }

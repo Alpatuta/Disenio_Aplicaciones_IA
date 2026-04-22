@@ -27,4 +27,16 @@ public class Fachada {
     public List<Cliente> getClientes() {
         return sc.getClientes();
     }
+
+    public List<Producto> getProductos() {
+        return ss.getProductos();
+    }
+
+    public List<Proveedor> getProveedores() {
+        return ss.getProveedores();
+    }
+
+    public List<Factura> getFacturas() {
+        return sf.getFacturas();
+    }
 }
