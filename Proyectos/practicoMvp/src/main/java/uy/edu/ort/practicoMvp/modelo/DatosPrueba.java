@@ -10,17 +10,17 @@ public class DatosPrueba {
         Proveedor pB = new Proveedor("Proveedor B");
         Proveedor pC = new Proveedor("Proveedor C");
 
-        sStock.agregar(pA);
-        sStock.agregar(pB);
-        sStock.agregar(pC);
+        sStock.agregarProveedor(pA);
+        sStock.agregarProveedor(pB);
+        sStock.agregarProveedor(pC);
 
         Producto caramelo = new Producto("Caramelo", 2, 3000, pA);
         Producto camisa = new Producto("Camisa", 1300, 1000, pB);
         Producto computadora = new Producto("Computadora", 20000, 40, pC);
 
-        sStock.altaProducto(caramelo);
-        sStock.altaProducto(camisa);
-        sStock.altaProducto(computadora);
+        sStock.agregarProducto(caramelo);
+        sStock.agregarProducto(camisa);
+        sStock.agregarProducto(computadora);
 
         SistemaClientes sClientes = SistemaClientes.getInstancia();
 
@@ -39,21 +39,21 @@ public class DatosPrueba {
         f1.agregar(2, camisa);
         f1.agregar(1, computadora);
 
-        sFacturas.agregar(f1);
+        sFacturas.agregarFactura(f1);
 
         Factura f2 = new Factura(ana);
         f2.agregar(400, caramelo);
         f2.agregar(20, camisa);
         f2.agregar(10, computadora);
 
-        sFacturas.agregar(f2);
+        sFacturas.agregarFactura(f2);
 
         Factura f3 = new Factura(mario);
 
         f3.agregar(1, camisa);
         f3.agregar(1, computadora);
 
-        sFacturas.agregar(f3);
+        sFacturas.agregarFactura(f3);
     }
 
 }

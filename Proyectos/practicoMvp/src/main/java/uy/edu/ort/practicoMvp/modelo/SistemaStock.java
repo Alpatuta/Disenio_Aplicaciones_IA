@@ -9,7 +9,7 @@ public class SistemaStock {
 
     private ArrayList<Proveedor> proveedores;
 
-    public SistemaStock() {
+    private SistemaStock() {
         this.productos = new ArrayList<>();
         this.proveedores = new ArrayList<>();
     }
