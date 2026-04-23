@@ -28,9 +28,9 @@ public class DatosPrueba {
         fachada.agregarProducto(camisa);
         fachada.agregarProducto(computadora);
 
-        Cliente juan = new Cliente("12345678", "Juan", "juan@mail.uy");
-        Cliente ana = new Cliente("13456789", "Ana", "ana@mail.uy");
-        Cliente mario = new Cliente("21234567", "Mario", "mario@mail.uy");
+        Cliente juan = new Cliente("juan", "12345678", "juan@mail.uy");
+        Cliente ana = new Cliente("ana", "13456789", "ana@mail.uy");
+        Cliente mario = new Cliente("mario", "21234567", "mario@mail.uy");
 
         fachada.agregarCliente(juan);
         fachada.agregarCliente(ana);

@@ -5,7 +5,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,7 +15,7 @@ import uy.edu.ort.practicoMvp.modelo.Producto;
 public class PresentadorAltaProducto {
     private Fachada fachada = Fachada.getInstancia();
 
-    @GetMapping("/mostrarProductosYProveedores")
+    @PostMapping("/mostrarProductosYProveedores")
     public Commands mostrarProductosYProveedores() {
         return Commands.create(mostrarProductos(), mostrarProveedores());
     }

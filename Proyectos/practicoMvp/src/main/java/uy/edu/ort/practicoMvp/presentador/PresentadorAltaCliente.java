@@ -14,7 +14,7 @@ public class PresentadorAltaCliente {
      * CU paso 1 – la vista se carga y pide la lista de clientes.
      * Comando de respuesta: OK → lista de clientes (para la tabla)
      */
-    @GetMapping("/mostrarClientes")
+    @PostMapping("/mostrarClientes")
     public Commands mostrarClientes() {
         return Commands.create(new Command("OK", fachada.getClientes()));
     }
