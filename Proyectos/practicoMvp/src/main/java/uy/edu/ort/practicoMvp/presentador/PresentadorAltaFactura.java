@@ -1,5 +1,7 @@
 package uy.edu.ort.practicoMvp.presentador;
 
-public class PresentadorAltaFactura {
+import uy.edu.ort.practicoMvp.modelo.Fachada;
 
+public class PresentadorAltaFactura {
+    private Fachada fachada = Fachada.getInstancia();
 }
