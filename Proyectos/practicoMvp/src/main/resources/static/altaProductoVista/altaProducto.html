@@ -120,6 +120,7 @@
                 option.textContent = proveedor.nombre ?? '';
                 select.appendChild(option);
             });
+            select.disabled = false;
         }
 
         function handleMensaje(mensaje) {
