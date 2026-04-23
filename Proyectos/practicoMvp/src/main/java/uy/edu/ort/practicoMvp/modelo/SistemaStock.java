@@ -2,7 +2,7 @@ package uy.edu.ort.practicoMvp.modelo;
 
 import java.util.ArrayList;
 
-public class SistemaStock {
+class SistemaStock {
     private static final SistemaStock instancia = new SistemaStock();
 
     private ArrayList<Producto> productos;

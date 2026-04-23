@@ -2,7 +2,7 @@ package uy.edu.ort.practicoMvp.modelo;
 
 import java.util.ArrayList;
 
-public class SistemaFacturas {
+class SistemaFacturas {
 
     private static final SistemaFacturas instancia = new SistemaFacturas();
 

@@ -3,12 +3,12 @@ package uy.edu.ort.practicoMvp.presentador;
 import org.springframework.web.bind.annotation.*;
 
 import uy.edu.ort.practicoMvp.modelo.Cliente;
-import uy.edu.ort.practicoMvp.modelo.SistemaClientes;
+import uy.edu.ort.practicoMvp.modelo.Fachada;
 
 @RestController
 public class PresentadorAltaCliente {
 
-    private SistemaClientes sc = SistemaClientes.getInstancia();
+    private Fachada fachada = Fachada.getInstancia();
 
     /**
      * CU paso 1 – la vista se carga y pide la lista de clientes.
@@ -16,7 +16,7 @@ public class PresentadorAltaCliente {
      */
     @GetMapping("/mostrarClientes")
     public Commands mostrarClientes() {
-        return Commands.create(new Command("OK", sc.getClientes()));
+        return Commands.create(new Command("OK", fachada.getClientes()));
     }
 
     /**
@@ -35,7 +35,7 @@ public class PresentadorAltaCliente {
             return Commands.create(mensaje("Cédula incorrecta"));
         }
 
-        Cliente existente = sc.buscarCliente(cedula);
+        Cliente existente = fachada.buscarCliente(cedula);
         if (existente != null) {
             // Devolvemos MENSAJE + CEDULA_EXISTE para mostrar datos del cliente
             return Commands.create(
@@ -67,8 +67,8 @@ public class PresentadorAltaCliente {
         c.setNombre(nombre);
         c.setEmail(email);
 
-        if (sc.agregar(c)) {
-            return Commands.create(new Command("CLIENTE_AGREGADO", sc.getClientes()));
+        if (fachada.agregarCliente(c)) {
+            return Commands.create(new Command("CLIENTE_AGREGADO", fachada.getClientes()));
         } else {
             return Commands.create(mensaje("No se pudo agregar el cliente"));
         }

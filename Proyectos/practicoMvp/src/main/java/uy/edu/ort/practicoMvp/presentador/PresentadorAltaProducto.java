@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import uy.edu.ort.practicoMvp.modelo.Fachada;
 import uy.edu.ort.practicoMvp.modelo.Producto;
-import uy.edu.ort.practicoMvp.modelo.SistemaStock;
 
 @RestController
 public class PresentadorAltaProducto {
-    private SistemaStock sistemaStock = SistemaStock.getInstancia();
+    private Fachada fachada = Fachada.getInstancia();
 
     @GetMapping("/mostrarProductosYProveedores")
     public Commands mostrarProductosYProveedores() {
@@ -35,7 +35,7 @@ public class PresentadorAltaProducto {
 
         if (!p.verificarNombre(nombre)) {
             return Commands.create(mostrarMensaje("Nombre del producto incorrecto"));
-        } else if (sistemaStock.existeProducto(nombre)) {
+        } else if (fachada.existeProducto(nombre)) {
             return Commands.create(mostrarMensaje("El producto ya existe"));
         } else {
             return Commands.create(new Command("NOMBRE_OK", null));
@@ -50,16 +50,16 @@ public class PresentadorAltaProducto {
             return Commands.create(mostrarMensaje("No se pudo agregar el producto"));
         }
 
-        if (sistemaStock.existeProducto(nombre)) {
+        if (fachada.existeProducto(nombre)) {
             return Commands.create(mostrarMensaje("El producto ya existe"));
         }
 
-        if (sistemaStock.getProveedorPorNombre(proveedor) == null) {
+        if (fachada.getProveedorPorNombre(proveedor) == null) {
             return Commands.create(mostrarMensaje("Debe seleccionar un proveedor válido"));
         }
 
-        p = new Producto(nombre, precio, unidades, sistemaStock.getProveedorPorNombre(proveedor));
-        sistemaStock.agregarProducto(p);
+        p = new Producto(nombre, precio, unidades, fachada.getProveedorPorNombre(proveedor));
+        fachada.agregarProducto(p);
         return Commands.create(
                 new Command("PRODUCTO_AGREGADO", productosComoMapas()),
                 mostrarMensaje("Producto agregado correctamente: " + p.toString()));
@@ -72,7 +72,7 @@ public class PresentadorAltaProducto {
     private List<Map<String, Object>> productosComoMapas() {
         List<Map<String, Object>> productos = new ArrayList<>();
 
-        for (Producto producto : sistemaStock.getProductos()) {
+        for (Producto producto : fachada.getProductos()) {
             Map<String, Object> fila = new LinkedHashMap<>();
             fila.put("nombre", producto.getNombre());
             fila.put("precio", producto.getPrecio());
@@ -87,7 +87,7 @@ public class PresentadorAltaProducto {
     private List<Map<String, Object>> proveedoresComoMapas() {
         List<Map<String, Object>> proveedores = new ArrayList<>();
 
-        sistemaStock.getProveedores().forEach(proveedor -> {
+        fachada.getProveedores().forEach(proveedor -> {
             Map<String, Object> fila = new LinkedHashMap<>();
             fila.put("nombre", proveedor.getNombre());
             proveedores.add(fila);

@@ -2,7 +2,7 @@ package uy.edu.ort.practicoMvp.modelo;
 
 import java.util.ArrayList;
 
-public class SistemaClientes {
+class SistemaClientes {
     private static final SistemaClientes instancia = new SistemaClientes();
     private ArrayList<Cliente> clientes;
 
