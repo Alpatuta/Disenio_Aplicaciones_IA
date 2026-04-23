@@ -40,6 +40,10 @@ public class Fachada {
         return sf.getFacturas();
     }
 
+    public int getTotalFacturas() {
+        return sf.getTotalFacturas();
+    }
+
     public boolean agregarFactura(Factura factura) {
         return sf.agregarFactura(factura);
     }
@@ -75,4 +79,5 @@ public class Fachada {
     public Producto getProductoMenorPrecio() {
         return ss.getProductoMenorPrecio();
     }
+
 }

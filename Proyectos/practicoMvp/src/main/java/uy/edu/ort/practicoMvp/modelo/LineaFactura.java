@@ -29,4 +29,8 @@ public class LineaFactura {
     public int total() {
         return 0;
     }
+
+    public int getTotal() {
+        return producto.getPrecio() * cantidad;
+    }
 }

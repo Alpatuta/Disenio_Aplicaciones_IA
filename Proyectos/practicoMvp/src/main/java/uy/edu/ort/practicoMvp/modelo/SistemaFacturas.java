@@ -28,4 +28,14 @@ class SistemaFacturas {
         return instancia;
     }
 
+    public int getTotalFacturas() {
+        int total = 0;
+
+        for (Factura factura : facturas) {
+            total += factura.getTotal();
+        }
+
+        return total;
+    }
+
 }

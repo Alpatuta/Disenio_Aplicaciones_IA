@@ -36,4 +36,8 @@ public class Factura {
     public int total() {
         return 0;
     }
+
+    public int getTotal() {
+        return lineaFactura.getTotal();
+    }
 }
