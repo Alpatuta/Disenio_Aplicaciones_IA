@@ -1,5 +1,7 @@
 package uy.edu.ort.practicoMvp.modelo;
 
+import java.time.LocalDate;
+
 public class Factura {
 
     private Cliente cliente;
@@ -30,7 +32,11 @@ public class Factura {
     }
 
     public boolean tieneProducto(Producto producto) {
-        return true;
+        // Verifico si la factura tiene el producto
+        if (lineaFactura != null) {
+            return lineaFactura.getProducto().equals(producto);
+        }
+        return false;
     }
 
     public int total() {
@@ -39,5 +45,12 @@ public class Factura {
 
     public int getTotal() {
         return lineaFactura.getTotal();
+    }
+
+    public String toString() {
+        LocalDate fecha = java.time.LocalDate.now();
+        String fechaFormateada = fecha.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        return "Factura [cliente = " + cliente.getNombre() + ", total = " + "$" + getTotal() + ", fecha = "
+                + fechaFormateada + "]";
     }
 }

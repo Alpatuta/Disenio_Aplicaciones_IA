@@ -17,7 +17,28 @@ class SistemaFacturas {
     }
 
     public boolean clienteComproProducto(Cliente c, Producto p) {
-        return true;
+        // Verifico si el cliente tiene una factura en proceso (sin producto o con el
+        // producto)
+        for (Factura factura : facturas) {
+            if (factura.getCliente().equals(c)) {
+                if (p != null && factura.tieneProducto(p)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public Cliente buscarCliente(String cedula) {
+        // Verifico si el cliente tiene una factura en proceso
+        for (Factura factura : facturas) {
+            if (factura.getCliente().getCedula().equals(cedula)) {
+                return factura.getCliente();
+            }
+        }
+
+        return null;
     }
 
     public ArrayList<Factura> getFacturas() {
@@ -36,6 +57,24 @@ class SistemaFacturas {
         }
 
         return total;
+    }
+
+    public Factura iniciarFacturaParaCliente(String cedula) {
+        Cliente c = buscarCliente(cedula);
+
+        if (c != null) {
+            Factura factura = new Factura(c);
+            facturas.add(factura);
+            return factura;
+        }
+
+        return null;
+    }
+
+    public Object agregarProductoAFactura(int idProducto, int cantidad) {
+        Producto p = Fachada.getInstancia().buscarProducto(idProducto);
+        // TODO : Terminar este metodo
+        return p;
     }
 
 }

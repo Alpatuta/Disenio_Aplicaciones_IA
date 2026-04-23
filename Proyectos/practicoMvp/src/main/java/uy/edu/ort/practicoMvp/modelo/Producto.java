@@ -7,16 +7,23 @@ public class Producto {
 
     private int unidades;
 
+    private int id;
+
     private Proveedor proveedor;
 
-    public Producto(String nombre, int precio, int unidades, Proveedor proveedor) {
+    public Producto(int id, String nombre, int precio, int unidades, Proveedor proveedor) {
         this.nombre = nombre;
         this.precio = precio;
         this.unidades = unidades;
         this.proveedor = proveedor;
+        this.id = id;
     }
 
     public Producto() {
+    }
+
+    public Producto(String nombre2, int precio2, int unidades2, Proveedor proveedorPorNombre) {
+        // TODO Auto-generated constructor stub
     }
 
     public String getNombre() {
@@ -51,6 +58,14 @@ public class Producto {
         this.proveedor = proveedor;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String toString() {
         return "Producto: " + nombre + ", Precio: " + precio + ", Unidades: " + unidades + ", Proveedor: "
                 + proveedor.getNombre();
@@ -58,6 +73,10 @@ public class Producto {
 
     public boolean verificarNombre(String nombre) {
         return nombre != null && !nombre.isEmpty() && nombre.length() < 50;
+    }
+
+    public boolean hayStock(int cantidad) {
+        return cantidad > 0 && cantidad <= unidades;
     }
 
 }

@@ -69,4 +69,13 @@ class SistemaStock {
         return null;
     }
 
+    public Producto buscarProducto(int idProducto) {
+        for (Producto p : productos) {
+            if (p != null && p.getId() == idProducto) {
+                return p;
+            }
+        }
+        return null;
+    }
+
 }
