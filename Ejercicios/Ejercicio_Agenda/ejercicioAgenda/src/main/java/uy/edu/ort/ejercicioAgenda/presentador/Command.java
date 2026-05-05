@@ -1,4 +1,4 @@
-package uy.edu.ort.ejercicioAgenda.dominio;
+package uy.edu.ort.ejercicioAgenda.presentador;
 
 public class Command {
     private String id;
