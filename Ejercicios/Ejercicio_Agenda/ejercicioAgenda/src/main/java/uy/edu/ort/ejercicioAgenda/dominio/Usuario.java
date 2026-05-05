@@ -1,6 +1,5 @@
 package uy.edu.ort.ejercicioAgenda.dominio;
 
-import uy.edu.ort.ejercicioAgenda.exception.CredencialesNoValidasException;
 import uy.edu.ort.ejercicioAgenda.exception.NombreNoValidoException;
 
 public class Usuario {
@@ -39,6 +38,31 @@ public class Usuario {
 	public Boolean validarContrasenia(String contrasenia) {
 		boolean esValida = this.contrasenia.equals(contrasenia);
 		return esValida;
+	}
+
+	public void nombreValido() throws NombreNoValidoException {
+		if (nombre == null || nombre.isEmpty()) {
+			throw new NombreNoValidoException("El nombre no puede estar vacío");
+		}
+	}
+
+	public void setNombre(String nombre) throws NombreNoValidoException {
+		nombreValido();
+		this.nombre = nombre;
+	}
+
+	public void setContrasenia(String contrasenia) {
+		if (validarContrasenia(contrasenia)) {
+			this.contrasenia = contrasenia;
+		}
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public String getContrasenia() {
+		return contrasenia;
 	}
 
 }
