@@ -1,11 +1,18 @@
 package uy.edu.ort.ejercicioAgenda.dominio;
 
 import uy.edu.ort.ejercicioAgenda.exception.CredencialesNoValidasException;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class SistemaUsuarios {
 
 	private List<Usuario> usuarios;
+
+	public SistemaUsuarios() {
+		// Inicializar la lista de usuarios
+		usuarios = new ArrayList<>();
+	}
 
 	public void agregarContacto(Contacto nuevo) {
 
@@ -54,6 +61,10 @@ public class SistemaUsuarios {
 		}
 
 		return usuarioEncontrado;
+	}
+
+	public static SistemaUsuarios getInstancia() {
+		return new SistemaUsuarios();
 	}
 
 }

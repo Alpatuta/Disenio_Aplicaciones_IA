@@ -6,7 +6,7 @@ import uy.edu.ort.ejercicioAgenda.exception.CredencialesNoValidasException;
 
 public class PresentadorUsuarios {
 
-	Fachada f;
+	Fachada f = Fachada.getInstancia();
 
 	public Commands login(String nombre, String contrasenia) throws CredencialesNoValidasException {
 		Commands c = null;

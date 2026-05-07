@@ -4,7 +4,9 @@ import uy.edu.ort.ejercicioAgenda.exception.CredencialesNoValidasException;
 
 public class Fachada {
 
-	private SistemaUsuarios su;
+	private static Fachada instancia = new Fachada();
+
+	private SistemaUsuarios su = SistemaUsuarios.getInstancia();
 
 	public void agregarContacto(Contacto nuevo) {
 		su.agregarContacto(nuevo);
@@ -22,4 +24,7 @@ public class Fachada {
 		return su.mostrarAgenda(u);
 	}
 
+	public static Fachada getInstancia() {
+		return instancia;
+	}
 }
