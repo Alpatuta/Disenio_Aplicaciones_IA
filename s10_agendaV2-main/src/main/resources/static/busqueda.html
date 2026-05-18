@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar Contactos</title>
+    <link rel="stylesheet" href="agenda.css">
+    <script type="module" src="CommandDispatcher.js"></script>
+</head>
+<body class="page-gestion-contactos">
+    <script src="utilesVista.js"></script>
+
+    <div class="container">
+        <h2 id="titulo"></h2>
+
+        <form id="formBuscar" onsubmit="buscarContactos(event)">
+            <div class="form-group busqueda-form-group">
+                <label for="filtro">Filtro:</label>
+                <input type="text" id="filtro" name="filtro" placeholder="Nombre o teléfono" class="busqueda-input" />
+            </div>
+            <div class="form-group busqueda-button-group">
+                <button type="submit" class="busqueda-button">Buscar</button>
+            </div>
+        </form>
+
+        <h2 id="resumen" class="busqueda-resumen"></h2>
+        
+        <div id="divListaContactos" class="contactos-lista busqueda-resultados"></div> 
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const vistaBusqueda = CommandDispatcher.registerView('Busqueda', {
+                onException: async (msg) => await mostrarMensaje(msg)
+            });
+
+            vistaBusqueda.handler('resultado', (resultado) => {
+                document.getElementById('resumen').innerText = resultado.cantidadContactos + ' Contacto(s) encontrados';
+                document.getElementById('divListaContactos').innerHTML = crearTablaDesdeJson(resultado.contactos);
+            });
+            vistaBusqueda.handler('titulo', (titulo) => {
+                document.getElementById('titulo').innerText = titulo;
+            });
+            vistaBusqueda.handler('mensaje', async (mensaje) => await mostrarMensaje(mensaje));
+
+            CommandDispatcher.startView(vistaBusqueda);
+            CommandDispatcher.submit('/busqueda/vistaConectada', {}, 'GET');
+        });
+
+        function buscarContactos(event) {
+            event.preventDefault();
+            CommandDispatcher.submit('/busqueda/buscar', serializarFormulario('formBuscar'));
+        }
+    </script>
+</body>
+</html>
