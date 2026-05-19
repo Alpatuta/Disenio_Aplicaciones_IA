@@ -39,6 +39,11 @@ public class ServicioUsuarios {
         throw new AgendaException("Usuario no es administrador");
     }
 
+    public void logoutAdministrador(String nombre) {
+        // Por ahora no se hace nada, pero se deja el método por si se quiere agregar
+        // lógica en el futuro.
+    }
+
     public UsuarioAgenda loginAgenda(String nombre, String contrasenia) throws AgendaException {
         Usuario usuario = login(nombre, contrasenia);
         if (usuario instanceof UsuarioAgenda) {

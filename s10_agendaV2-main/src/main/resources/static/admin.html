@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administración de Usuarios</title>
+    <link rel="stylesheet" href="agenda.css">
+    <script type="module" src="CommandDispatcher.js"></script>
+</head>
+
+<body class="page-gestion-contactos">
+    <script src="utilesVista.js"></script>
+
+    <div class="container">
+        <h2 id="titulo">Bienvenido, <span id="nombreAdmin"></span></h2>
+
+        <div class="form-group">
+            <button id="btnActualizar" class="btn-acceder">Actualizar</button>
+            <button id="btnSalir" class="btn-acceder"
+                style="background-color: #f44336; margin-top: 10px;">Salir</button>
+        </div>
+
+        <h3>Usuarios Conectados</h3>
+        <div id="divUsuariosConectados" class="contactos-lista"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const vistaAdmin = CommandDispatcher.registerView('Admin', {
+                onException: async (msg) => await mostrarMensaje(msg)
+            });
+
+            vistaAdmin.handler('mostrarUsuarioAdmin', (nombre) => {
+                document.getElementById('nombreAdmin').innerText = nombre;
+            });
+
+            vistaAdmin.handler('mostrarUsuariosConectados', (usuarios) => {
+                const container = document.getElementById('divUsuariosConectados');
+                if (usuarios.length === 0) {
+                    container.innerHTML = '<p>No hay usuarios conectados.</p>';
+                    return;
+                }
+
+                let html = '<table>';
+                html += '<thead><tr><th>Nombre</th><th>Contactos</th><th>Ingreso</th></tr></thead>';
+                html += '<tbody>';
+                usuarios.forEach(u => {
+                    html += `<tr>`;
+                    html += `<td>${u.nombreCompleto}</td>`;
+                    html += `<td>${u.cantidadContactos}</td>`;
+                    html += `<td>${new Date(u.fechaIngreso).toLocaleString()}</td>`;
+                    html += `</tr>`;
+                });
+                html += '</tbody></table>';
+                container.innerHTML = html;
+            });
+
+            function actualizar() {
+                CommandDispatcher.submit('/usuario/vistaConectada', {}, 'GET');
+            }
+
+            document.getElementById('btnActualizar').addEventListener('click', actualizar);
+
+            document.getElementById('btnSalir').addEventListener('click', () => {
+                CommandDispatcher.submit('/admin/logout', {}, 'POST').then(() => {
+                    window.location.href = 'loginAdmin.html';
+                });
+            });
+
+            CommandDispatcher.startView(vistaAdmin);
+            actualizar(); // Carga inicial
+        });
+    </script>
+</body>
+
+</html>

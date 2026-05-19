@@ -42,6 +42,10 @@ public class FachadaServicios {
         return sUsuarios.loginAdministrador(nombre, contrasenia);
     }
 
+    public void logoutAdministrador(String nombre) {
+        sUsuarios.logoutAdministrador(nombre);
+    }
+
     public void agregarTipoContacto(String nombre) {
         sAgenda.agregarTipoContacto(nombre);
     }

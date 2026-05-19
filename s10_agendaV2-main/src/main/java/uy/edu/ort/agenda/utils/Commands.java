@@ -12,4 +12,8 @@ public class Commands {
     public List<Command> getCommands() {
         return commands;
     }
+
+    public static Commands create(String commandName, Object data) {
+        return new Commands(List.of(new Command(commandName, data)));
+    }
 }

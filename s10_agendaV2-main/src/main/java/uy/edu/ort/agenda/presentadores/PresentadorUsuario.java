@@ -14,39 +14,42 @@ import uy.edu.ort.agenda.dtos.UsuarioConectadoDto;
 import uy.edu.ort.agenda.utils.Command;
 import uy.edu.ort.agenda.utils.Commands;
 
+import jakarta.servlet.http.HttpSession;
+
+// ... existing code ...
 @RestController
 @RequestMapping("/usuario")
 public class PresentadorUsuario {
 
-    private Administrador administrador;
-
     private final FachadaServicios f = FachadaServicios.getInstancia();
 
     @GetMapping("/vistaConectada")
-    public Commands inicializarVista() {
+    public Commands inicializarVista(HttpSession session) {
+        Administrador admin = (Administrador) session.getAttribute("usuarioAgenda");
+        if (admin == null) {
+            // This should not happen if the user is properly logged in as an admin.
+            // You might want to throw an exception or handle it gracefully.
+            return Commands.create("error", "No se ha iniciado sesión como administrador.");
+        }
 
         // Retornar comandos: el primero con el nombre del usuario administrador.
-        Command mostrarUsuarioAdmin = mostrarUsuarioAdmin();
+        Command mostrarUsuarioAdmin = new Command("mostrarUsuarioAdmin", admin.getNombre());
         // El segundo es la lista de usuarios conectados en formato DTO.
         Command mostrarUsuariosConectados = mostrarUsuariosConectados();
 
-        return new Commands(List.of(mostrarUsuarioAdmin, mostrarUsuariosConectados));
+        return Commands.create("inicializarVista", List.of(mostrarUsuarioAdmin, mostrarUsuariosConectados));
     }
 
+    // ... existing code ...
     private Command mostrarUsuariosConectados() {
-        // Mostrar la lista de usuarios conectados en formato DTO
 
-        ArrayList<UsuarioConectado> uc = new ArrayList<UsuarioConectado>(f.getUsuariosConectados());
-
+        List<UsuarioConectado> uc = f.getUsuariosConectados();
         List<UsuarioConectadoDto> usuariosConectados = new ArrayList<>();
+
         for (UsuarioConectado usuario : uc) {
             usuariosConectados.add(new UsuarioConectadoDto(usuario));
         }
         return new Command("mostrarUsuariosConectados", usuariosConectados);
-    }
-
-    private Command mostrarUsuarioAdmin() {
-        return new Command("mostrarUsuarioAdmin", administrador.getNombre());
     }
 
 }
