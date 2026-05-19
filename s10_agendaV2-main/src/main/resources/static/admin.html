@@ -49,7 +49,7 @@
                     html += `<tr>`;
                     html += `<td>${u.nombreCompleto}</td>`;
                     html += `<td>${u.cantidadContactos}</td>`;
-                    html += `<td>${new Date(u.fechaIngreso).toLocaleString()}</td>`;
+                    html += `<td>${u.fechaIngreso}</td>`;  // ← sin new Date()
                     html += `</tr>`;
                 });
                 html += '</tbody></table>';
@@ -57,7 +57,7 @@
             });
 
             function actualizar() {
-                CommandDispatcher.submit('/usuario/vistaConectada', {}, 'GET');
+                CommandDispatcher.submit('/admin/usuario/vistaConectada', {}, 'GET');
             }
 
             document.getElementById('btnActualizar').addEventListener('click', actualizar);

@@ -18,26 +18,23 @@ import jakarta.servlet.http.HttpSession;
 
 // ... existing code ...
 @RestController
-@RequestMapping("/usuario")
+@RequestMapping("/admin/usuario")
 public class PresentadorUsuario {
 
     private final FachadaServicios f = FachadaServicios.getInstancia();
 
+    // PresentadorUsuario.java
     @GetMapping("/vistaConectada")
     public Commands inicializarVista(HttpSession session) {
         Administrador admin = (Administrador) session.getAttribute("usuarioAgenda");
         if (admin == null) {
-            // This should not happen if the user is properly logged in as an admin.
-            // You might want to throw an exception or handle it gracefully.
             return Commands.create("error", "No se ha iniciado sesión como administrador.");
         }
 
-        // Retornar comandos: el primero con el nombre del usuario administrador.
-        Command mostrarUsuarioAdmin = new Command("mostrarUsuarioAdmin", admin.getNombre());
-        // El segundo es la lista de usuarios conectados en formato DTO.
+        Command mostrarUsuarioAdmin = new Command("mostrarUsuarioAdmin", admin.getNombreCompleto());
         Command mostrarUsuariosConectados = mostrarUsuariosConectados();
 
-        return Commands.create("inicializarVista", List.of(mostrarUsuarioAdmin, mostrarUsuariosConectados));
+        return Command.lista(mostrarUsuarioAdmin, mostrarUsuariosConectados); // ← usar Command.lista
     }
 
     // ... existing code ...

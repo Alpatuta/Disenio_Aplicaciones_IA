@@ -1,20 +1,24 @@
 package uy.edu.ort.agenda.dtos;
 
-import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import lombok.Getter;
-import uy.edu.ort.agenda.dominio.UsuarioAgenda;
 import uy.edu.ort.agenda.dominio.UsuarioConectado;
 
 public class UsuarioConectadoDto {
     @Getter
-    private UsuarioAgenda usuario;
+    private String nombreCompleto;
 
     @Getter
-    private LocalDateTime fechaConexion;
+    private String fechaIngreso;
 
-    public UsuarioConectadoDto(UsuarioConectado usuario) {
-        this.usuario = usuario.getUsuario();
-        this.fechaConexion = usuario.getFechaConexion();
+    @Getter
+    private int cantidadContactos;
+
+    public UsuarioConectadoDto(UsuarioConectado uc) {
+        this.nombreCompleto = uc.getUsuario().getNombreCompleto();
+        this.cantidadContactos = uc.getUsuario().getAgenda().cantidadContactos();
+        this.fechaIngreso = uc.getFechaConexion()
+                .format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
     }
 }
