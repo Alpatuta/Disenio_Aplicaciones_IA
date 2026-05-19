@@ -1,11 +1,13 @@
 package uy.edu.ort.agenda.servicios.fachada;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import uy.edu.ort.agenda.dominio.Administrador;
 import uy.edu.ort.agenda.dominio.TipoContacto;
 import uy.edu.ort.agenda.dominio.Usuario;
 import uy.edu.ort.agenda.dominio.UsuarioAgenda;
+import uy.edu.ort.agenda.dominio.UsuarioConectado;
 import uy.edu.ort.agenda.excepciones.AgendaException;
 import uy.edu.ort.agenda.servicios.ServicioAgenda;
 import uy.edu.ort.agenda.servicios.ServicioUsuarios;
@@ -46,6 +48,10 @@ public class FachadaServicios {
 
     public ArrayList<TipoContacto> getTiposContacto() {
         return sAgenda.getTiposContacto();
+    }
+
+    public List<UsuarioConectado> getUsuariosConectados() {
+        return sUsuarios.getUsuariosConectados();
     }
 
 }
