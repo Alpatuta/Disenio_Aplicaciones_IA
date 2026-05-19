@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 
 import uy.edu.ort.agenda.dominio.Agenda;
 import uy.edu.ort.agenda.dominio.Contacto;
-import uy.edu.ort.agenda.dominio.Usuario;
 import uy.edu.ort.agenda.dominio.UsuarioAgenda;
 import uy.edu.ort.agenda.dtos.AgendaDto;
 import uy.edu.ort.agenda.excepciones.AgendaException;
@@ -28,7 +27,8 @@ public class PresentadorBusqueda {
     private Agenda agenda;
 
     @GetMapping("/vistaConectada")
-    public Commands inicializarVista(@SessionAttribute(name = "usuarioAgenda", required = false) UsuarioAgenda usuario) {
+    public Commands inicializarVista(
+            @SessionAttribute(name = "usuarioAgenda", required = false) UsuarioAgenda usuario) {
 
         if (usuario == null) {
             // Manejar el caso en que el usuario no está en la sesión pide redireccionar a

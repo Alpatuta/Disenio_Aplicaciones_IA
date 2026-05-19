@@ -54,4 +54,8 @@ public class FachadaServicios {
         return sUsuarios.getUsuariosConectados();
     }
 
+    public void desconectarUsuario(UsuarioAgenda usuario) {
+        sUsuarios.desconectarUsuario(usuario);
+    }
+
 }

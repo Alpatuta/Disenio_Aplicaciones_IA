@@ -8,12 +8,17 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 
 import jakarta.servlet.http.HttpSession;
 import uy.edu.ort.agenda.dominio.Usuario;
+import uy.edu.ort.agenda.dominio.UsuarioAgenda;
+import uy.edu.ort.agenda.servicios.fachada.FachadaServicios;
 import uy.edu.ort.agenda.utils.Command;
 import uy.edu.ort.agenda.utils.Commands;
 
 @RestController
 @RequestMapping("/menu")
 public class PresentadorMenu {
+
+    private static final FachadaServicios f = FachadaServicios.getInstancia();
+
     @GetMapping("/vistaConectada")
     public Commands inicializarVista(@SessionAttribute(name = "usuarioAgenda", required = false) Usuario usuario) {
         if (usuario == null) {
@@ -31,6 +36,11 @@ public class PresentadorMenu {
         if (usuario != null) {
             sesionHttp.removeAttribute("usuarioAgenda");
             sesionHttp.invalidate();
+        }
+
+        // Si el usuario es usuarioAgenda lo saco de la lista de usuarios conectados
+        if (usuario instanceof UsuarioAgenda) {
+            f.desconectarUsuario((UsuarioAgenda) usuario);
         }
         return Command.lista(new Command("usuarioNoAutenticado", "login.html"));
     }

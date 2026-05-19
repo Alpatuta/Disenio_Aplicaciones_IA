@@ -1,17 +1,16 @@
 package uy.edu.ort.agenda.presentadores;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.SessionAttribute;
 
-import jakarta.servlet.http.HttpSession;
 import uy.edu.ort.agenda.dominio.Administrador;
-import uy.edu.ort.agenda.dominio.Usuario;
+import uy.edu.ort.agenda.dominio.UsuarioConectado;
 import uy.edu.ort.agenda.servicios.fachada.FachadaServicios;
+import uy.edu.ort.agenda.dtos.UsuarioConectadoDto;
 import uy.edu.ort.agenda.utils.Command;
 import uy.edu.ort.agenda.utils.Commands;
 
@@ -35,10 +34,19 @@ public class PresentadorUsuario {
     }
 
     private Command mostrarUsuariosConectados() {
-        return new Command("mostrarUsuariosConectados", f.getUsuariosConectados());
+        // Mostrar la lista de usuarios conectados en formato DTO
+
+        ArrayList<UsuarioConectado> uc = new ArrayList<UsuarioConectado>(f.getUsuariosConectados());
+
+        List<UsuarioConectadoDto> usuariosConectados = new ArrayList<>();
+        for (UsuarioConectado usuario : uc) {
+            usuariosConectados.add(new UsuarioConectadoDto(usuario));
+        }
+        return new Command("mostrarUsuariosConectados", usuariosConectados);
     }
 
     private Command mostrarUsuarioAdmin() {
         return new Command("mostrarUsuarioAdmin", administrador.getNombre());
     }
+
 }
