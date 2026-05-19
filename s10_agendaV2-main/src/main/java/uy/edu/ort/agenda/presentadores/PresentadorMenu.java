@@ -12,16 +12,17 @@ import uy.edu.ort.agenda.utils.Command;
 import uy.edu.ort.agenda.utils.Commands;
 
 @RestController
-@RequestMapping("/menu")        
+@RequestMapping("/menu")
 public class PresentadorMenu {
     @GetMapping("/vistaConectada")
-    public Commands inicializarVista(@SessionAttribute(name = "usuarioAgenda", required=false) Usuario usuario){
+    public Commands inicializarVista(@SessionAttribute(name = "usuarioAgenda", required = false) Usuario usuario) {
         if (usuario == null) {
-             // Manejar el caso en que el usuario no está en la sesión pide redireccionar a la página de login
-             return Command.lista(new Command("usuarioNoAutenticado", "login.html"));
-         }
-         return Command.lista(new Command("nombreCompleto", usuario.getNombreCompleto()));
-        
+            // Manejar el caso en que el usuario no está en la sesión pide redireccionar a
+            // la página de login
+            return Command.lista(new Command("usuarioNoAutenticado", "login.html"));
+        }
+        return Command.lista(new Command("nombreCompleto", usuario.getNombreCompleto()));
+
     }
 
     @PostMapping("/logout")

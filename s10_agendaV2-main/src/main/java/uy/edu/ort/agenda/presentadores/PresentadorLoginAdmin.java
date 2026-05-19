@@ -13,6 +13,7 @@ public class PresentadorLoginAdmin extends PresentadorLogin<Administrador> {
 
     @Override
     protected String siguienteCU() {
+        //Todo: implementar redireccion a usuarios conectados
         return "admin/usuarios-conectados.html";
     }
 
@@ -20,5 +21,6 @@ public class PresentadorLoginAdmin extends PresentadorLogin<Administrador> {
     protected Administrador obtenerUsuario(String nombre, String contrasenia) throws AgendaException {
         return FachadaServicios.getInstancia().loginAdministrador(nombre, contrasenia);
     }
+
 
 }
