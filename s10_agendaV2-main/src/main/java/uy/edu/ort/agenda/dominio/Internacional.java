@@ -2,14 +2,15 @@ package uy.edu.ort.agenda.dominio;
 
 import uy.edu.ort.agenda.excepciones.AgendaException;
 
-public class Internacional extends Telefono {
+public class Internacional extends TipoTelefono {
 
-    public Internacional(String numero) {
+    public Internacional(String numero) throws AgendaException {
         super(numero);
+        validar(numero);
     }
 
     @Override
-    public void validarSegunTipo(String numero) throws AgendaException {
+    public void validar(String numero) throws AgendaException {
         if (!numero.startsWith("00") && !numero.startsWith("+")) {
             throw new AgendaException("El número de teléfono internacional debe comenzar con '00' o '+'.");
         }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import uy.edu.ort.agenda.dominio.Administrador;
 import uy.edu.ort.agenda.dominio.TipoContacto;
+import uy.edu.ort.agenda.dominio.TipoTelefono;
 import uy.edu.ort.agenda.dominio.Usuario;
 import uy.edu.ort.agenda.dominio.UsuarioAgenda;
 import uy.edu.ort.agenda.dominio.UsuarioConectado;
@@ -60,6 +61,10 @@ public class FachadaServicios {
 
     public void desconectarUsuario(UsuarioAgenda usuario) {
         sUsuarios.desconectarUsuario(usuario);
+    }
+
+    public ArrayList<TipoTelefono> getTiposTelefono() {
+        return sAgenda.getTiposTelefono();
     }
 
 }

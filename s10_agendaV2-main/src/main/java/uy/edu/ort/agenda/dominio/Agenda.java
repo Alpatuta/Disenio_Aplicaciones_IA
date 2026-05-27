@@ -30,7 +30,7 @@ public class Agenda {
         ArrayList<Contacto> resultado = new ArrayList<Contacto>();
         if(filtro.isBlank()) return resultado;
         for(Contacto c:contactos){
-            if(c.getNombre().contains(filtro) || c.getTelefono().contains(filtro)){
+            if(c.getNombre().contains(filtro) || c.getTelefono().getNumero().contains(filtro)){
                     resultado.add(c);
             }
         }

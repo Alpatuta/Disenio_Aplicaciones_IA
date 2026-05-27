@@ -2,14 +2,15 @@ package uy.edu.ort.agenda.dominio;
 
 import uy.edu.ort.agenda.excepciones.AgendaException;
 
-public class Celular extends Telefono {
+public class Celular extends TipoTelefono {
 
-    public Celular(String numero) {
+    public Celular(String numero) throws AgendaException {
         super(numero);
+        validar(numero);
     }
 
     @Override
-    public void validarSegunTipo(String numero) throws AgendaException {
+    public void validar(String numero) throws AgendaException {
         if (!numero.matches("\\d{9}")) {
             throw new AgendaException("El número de teléfono celular debe contener exactamente 9 dígitos.");
         }
