@@ -5,12 +5,15 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 
 import uy.edu.ort.agenda.dominio.Agenda;
 import uy.edu.ort.agenda.dominio.Contacto;
+import uy.edu.ort.agenda.dominio.TipoBusqueda;
 import uy.edu.ort.agenda.dominio.UsuarioAgenda;
 import uy.edu.ort.agenda.dtos.AgendaDto;
 import uy.edu.ort.agenda.excepciones.AgendaException;
+import uy.edu.ort.agenda.servicios.fachada.FachadaServicios;
 import uy.edu.ort.agenda.utils.Command;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,8 +40,35 @@ public class PresentadorBusqueda {
         }
         agenda = usuario.getAgenda();
 
-        return Command.lista(titulo());
+        return Command.lista(
+                titulo(),
+                tipoBusquedaActual(),
+                tiposBusquedaDisponibles());
+    }
 
+    private Command tiposBusquedaDisponibles() {
+        List<String> nombresTipos = FachadaServicios.getInstancia().getTiposBusqueda()
+                .stream()
+                .map(TipoBusqueda::getNombre)
+                .collect(Collectors.toList());
+        return new Command("tiposBusquedaDisponibles", nombresTipos);
+    }
+
+    @PostMapping("/setTipoBusqueda")
+    public Commands setTipoBusqueda(@RequestParam String tipo) {
+        TipoBusqueda tipoBusqueda = FachadaServicios.getInstancia().getTiposBusqueda()
+                .stream()
+                .filter(tb -> tb.getNombre().equals(tipo))
+                .findFirst()
+                .orElse(null);
+        if (tipoBusqueda != null) {
+            agenda.setTipoBusqueda(tipoBusqueda);
+        }
+        return Command.lista(tipoBusquedaActual());
+    }
+
+    private Command tipoBusquedaActual() {
+        return new Command("tipoBusquedaActual", agenda.getTipoBusqueda().getNombre());
     }
 
     @PostMapping("/buscar")

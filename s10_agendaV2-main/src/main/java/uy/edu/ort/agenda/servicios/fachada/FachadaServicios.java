@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import uy.edu.ort.agenda.dominio.Administrador;
+import uy.edu.ort.agenda.dominio.TipoBusqueda;
 import uy.edu.ort.agenda.dominio.TipoContacto;
 import uy.edu.ort.agenda.dominio.TipoTelefono;
 import uy.edu.ort.agenda.dominio.Usuario;
@@ -67,4 +68,7 @@ public class FachadaServicios {
         return sAgenda.getTiposTelefono();
     }
 
+    public ArrayList<TipoBusqueda> getTiposBusqueda() {
+        return sAgenda.getTiposBusqueda();
+    }
 }

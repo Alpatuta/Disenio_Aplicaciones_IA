@@ -5,8 +5,8 @@ import java.util.List;
 
 public class TipoBusquedaCombinada extends TipoBusqueda {
 
-    public TipoBusquedaCombinada(String filtro) {
-        super(filtro);
+    public TipoBusquedaCombinada() {
+        super("Combinada");
     }
 
     @Override
@@ -14,7 +14,7 @@ public class TipoBusquedaCombinada extends TipoBusqueda {
         List<Contacto> resultado = new ArrayList<>();
 
         for (Contacto c : contactos) {
-            if (c.getNombre().contains(filtro) || c.getTelefono().getNumero().contains(filtro)) {
+            if (c.getNombre().contains(filtro) || c.getTelefono().getNumero().startsWith(filtro)) {
                 resultado.add(c);
             }
         }

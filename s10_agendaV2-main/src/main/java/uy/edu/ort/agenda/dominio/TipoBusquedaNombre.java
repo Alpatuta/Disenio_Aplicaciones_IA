@@ -5,8 +5,8 @@ import java.util.List;
 
 public class TipoBusquedaNombre extends TipoBusqueda {
 
-    public TipoBusquedaNombre(String filtro) {
-        super(filtro);
+    public TipoBusquedaNombre() {
+        super("Por Nombre");
     }
 
     public List<Contacto> filtrar(String filtro, List<Contacto> contactos) {

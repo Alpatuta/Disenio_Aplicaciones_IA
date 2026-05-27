@@ -12,6 +12,15 @@ public class Agenda {
 
     public Agenda() {
         this.contactos = new ArrayList<>();
+        this.tipoBusqueda = new TipoBusquedaCombinada();
+    }
+
+    public void setTipoBusqueda(TipoBusqueda tipoBusqueda) {
+        this.tipoBusqueda = tipoBusqueda;
+    }
+
+    public TipoBusqueda getTipoBusqueda() {
+        return tipoBusqueda;
     }
 
     public void agregar(Contacto contacto) throws AgendaException {
@@ -29,26 +38,10 @@ public class Agenda {
 
     public List<Contacto> buscar(String filtro) throws AgendaException {
 
-        List<Contacto> resultado = new ArrayList<>();
-
         if (filtro.isBlank()) {
             throw new AgendaException("Ingrese un texto de busqueda");
         }
 
-        if ("Numero".equals(filtro)) {
-            tipoBusqueda = new TipoBusquedaNumero(filtro);
-
-            resultado = tipoBusqueda.filtrar(filtro, contactos);
-        } else if ("Nombre".equals(filtro)) {
-            tipoBusqueda = new TipoBusquedaNombre(filtro);
-
-            resultado = tipoBusqueda.filtrar(filtro, contactos);
-        } else {
-            tipoBusqueda = new TipoBusquedaCombinada(filtro);
-
-            resultado = tipoBusqueda.filtrar(filtro, contactos);
-        }
-
-        return resultado;
+        return tipoBusqueda.filtrar(filtro, contactos);
     }
 }

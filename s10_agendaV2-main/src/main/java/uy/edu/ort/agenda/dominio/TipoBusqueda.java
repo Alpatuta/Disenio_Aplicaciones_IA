@@ -4,14 +4,14 @@ import java.util.List;
 
 public abstract class TipoBusqueda {
 
-    String filtro;
+    String nombre;
 
-    public TipoBusqueda(String filtro) {
-        this.filtro = filtro;
+    public TipoBusqueda(String nombre) {
+        this.nombre = nombre;
     }
 
-    public String getFiltro() {
-        return filtro;
+    public String getNombre() {
+        return nombre;
     }
 
     public abstract List<Contacto> filtrar(String filtro, List<Contacto> contactos);

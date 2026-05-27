@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="agenda.css">
     <script type="module" src="CommandDispatcher.js"></script>
 </head>
+
 <body class="page-gestion-contactos">
     <script src="utilesVista.js"></script>
 
@@ -18,14 +20,15 @@
                 <label for="filtro">Filtro:</label>
                 <input type="text" id="filtro" name="filtro" placeholder="Nombre o teléfono" class="busqueda-input" />
             </div>
+            <div id="tiposBusquedaContainer" class="form-group"></div>
             <div class="form-group busqueda-button-group">
                 <button type="submit" class="busqueda-button">Buscar</button>
             </div>
         </form>
 
         <h2 id="resumen" class="busqueda-resumen"></h2>
-        
-        <div id="divListaContactos" class="contactos-lista busqueda-resultados"></div> 
+
+        <div id="divListaContactos" class="contactos-lista busqueda-resultados"></div>
     </div>
 
     <script>
@@ -41,6 +44,29 @@
             vistaBusqueda.handler('titulo', (titulo) => {
                 document.getElementById('titulo').innerText = titulo;
             });
+            vistaBusqueda.handler('tipoBusquedaActual', (nombre) => {
+                const radio = document.querySelector(`input[name="tipoBusqueda"][value="${nombre}"]`);
+                if (radio) {
+                    radio.checked = true;
+                }
+            });
+            vistaBusqueda.handler('tiposBusquedaDisponibles', (tipos) => {
+                const container = document.getElementById('tiposBusquedaContainer');
+                container.innerHTML = '';
+                tipos.forEach(tipo => {
+                    const label = document.createElement('label');
+                    const radio = document.createElement('input');
+                    radio.type = 'radio';
+                    radio.name = 'tipoBusqueda';
+                    radio.value = tipo;
+                    radio.onchange = () => {
+                        CommandDispatcher.submit('/busqueda/setTipoBusqueda', { tipo: tipo });
+                    };
+                    label.appendChild(radio);
+                    label.appendChild(document.createTextNode(tipo));
+                    container.appendChild(label);
+                });
+            });
             vistaBusqueda.handler('mensaje', async (mensaje) => await mostrarMensaje(mensaje));
 
             CommandDispatcher.startView(vistaBusqueda);
@@ -53,4 +79,5 @@
         }
     </script>
 </body>
+
 </html>
