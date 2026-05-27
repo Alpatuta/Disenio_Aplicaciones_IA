@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpSession;
 import uy.edu.ort.agenda.dominio.Administrador;
 import uy.edu.ort.agenda.excepciones.AgendaException;
 import uy.edu.ort.agenda.servicios.fachada.FachadaServicios;
+import uy.edu.ort.agenda.utils.Command;
 import uy.edu.ort.agenda.utils.Commands;
 
 @RestController
@@ -24,14 +25,21 @@ public class PresentadorLoginAdmin extends PresentadorLogin<Administrador> {
         return FachadaServicios.getInstancia().loginAdministrador(nombre, contrasenia);
     }
 
+    // PresentadorLoginAdmin.java
+    @Override
     @PostMapping("/logout")
-    public Commands logout(HttpSession session) {
-        Administrador admin = (Administrador) session.getAttribute("usuarioAgenda");
+    public Commands logout(HttpSession sesionHttp) {
+        Administrador admin = (Administrador) sesionHttp.getAttribute("usuarioAgenda");
         if (admin != null) {
             FachadaServicios.getInstancia().logoutAdministrador(admin.getNombre());
         }
-        session.invalidate();
-        return new Commands(null);
+        sesionHttp.invalidate();
+        return Command.lista(new Command("usuarioNoAutenticado", loginUrl()));
+    }
+
+    @Override
+    protected String loginUrl() {
+        return "loginAdmin.html";
     }
 
 }

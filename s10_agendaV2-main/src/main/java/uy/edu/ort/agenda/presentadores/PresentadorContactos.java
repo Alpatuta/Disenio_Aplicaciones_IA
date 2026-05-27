@@ -45,7 +45,7 @@ public class PresentadorContactos {
             return Command.lista(new Command("usuarioNoAutenticado", "login.html"));
         }
         agenda = usuario.getAgenda();
-        return Command.lista(tiposContacto(), agenda());
+        return Command.lista(tiposContacto(), tiposTelefono(), agenda());
 
     }
 

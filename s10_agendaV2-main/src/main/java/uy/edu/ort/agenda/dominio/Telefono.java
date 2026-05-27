@@ -24,17 +24,10 @@ public class Telefono {
     }
 
     public void validar() throws AgendaException {
-        tipoTelefono.validar(numero);
-        validarNumero();
-    }
-
-    private void validarNumero() throws AgendaException {
         if (numero == null || numero.isBlank()) {
             throw new AgendaException("El número de teléfono no puede estar vacío.");
         }
-        if (!numero.matches("\\d+")) {
-            throw new AgendaException("El número de teléfono debe contener solo dígitos.");
-        }
+        tipoTelefono.validar(numero);
     }
 
 }

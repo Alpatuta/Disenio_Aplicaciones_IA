@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="agenda.css">
     <script type="module" src="CommandDispatcher.js"></script>
 </head>
+
 <body class="page-gestion-contactos">
     <!-- Se solicita incluir utilesVista.js al inicio del body -->
     <script src="utilesVista.js"></script>
@@ -20,13 +22,22 @@
                 <label for="inputNombre">Nombre:</label>
                 <input type="text" id="inputNombre" name="nombre" placeholder="Nombre completo" required />
             </div>
-            
+
             <!-- 2. Teléfono -->
             <div class="form-group">
                 <label for="inputTelefono">Teléfono:</label>
-                <input type="tel" id="inputTelefono" name="telefono" placeholder="Ej: 099123456" pattern="[0-9\-\s()+]+" required />
+                <input type="tel" id="inputTelefono" name="telefono" placeholder="Ej: 099123456" pattern="[0-9\-\s()+]+"
+                    required />
             </div>
-            
+
+            <!-- Tipo de Teléfono -->
+            <div class="form-group">
+                <label for="selectTipoTelefono">Tipo de Teléfono:</label>
+                <select id="selectTipoTelefono" name="tipoTelefono" required>
+                    <!-- Opciones se cargarán dinámicamente -->
+                </select>
+            </div>
+
             <!-- 3. Tipo de contacto -->
             <div class="form-group">
                 <label>Tipo de contacto:</label>
@@ -34,7 +45,7 @@
                     <!-- Aquí se insertarán dinámicamente los tipos de contacto (radiobuttons) -->
                 </div>
             </div>
-            
+
             <!-- 4. Botón -->
             <div class="form-group">
                 <button id="btnCrearContacto" type="submit">Crear contacto</button>
@@ -42,18 +53,19 @@
         </form>
 
         <!-- 5. Cantidad de Contactos -->
-        <div id="cantidadContactos">Cantidad de contactos : <span id="cantidad"></span></div> 
+        <div id="cantidadContactos">Cantidad de contactos : <span id="cantidad"></span></div>
         <!-- 6. Lista de contactos del usuario -->
-        <div id="contenedorAgenda" class="contactos-lista"></div>  
-          
+        <div id="contenedorAgenda" class="contactos-lista"></div>
+
     </div>
-      
+
 
     <!-- Script con constantes para forms y elementos editables -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const formCrearContacto = document.getElementById('formCrearContacto');
             const divTiposContacto = document.getElementById('divTiposContacto');
+            const selectTipoTelefono = document.getElementById('selectTipoTelefono');
             const contenedorAgenda = document.getElementById('contenedorAgenda');
             const cantidadContactos = document.getElementById('cantidad');
 
@@ -70,6 +82,9 @@
                     mostrarOpcionInicial: true,
                     id: 'posTipoContacto'
                 });
+            });
+            vistaContactos.handler('tiposTelefono', (tipos) => {
+                selectTipoTelefono.innerHTML = crearSelect(tipos, 'nombre', 'nombre');
             });
             vistaContactos.handler('agenda', (agenda) => {
                 cantidadContactos.innerText = agenda.cantidadContactos;
@@ -90,4 +105,5 @@
     </script>
 
 </body>
+
 </html>

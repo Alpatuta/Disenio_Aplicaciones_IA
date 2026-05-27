@@ -21,4 +21,9 @@ public class PresentadorLoginUsuario extends PresentadorLogin<UsuarioAgenda> {
         return FachadaServicios.getInstancia().loginAgenda(nombre, contrasenia);
     }
 
+    @Override
+    protected String loginUrl() {
+        return "login.html";
+    }
+
 }

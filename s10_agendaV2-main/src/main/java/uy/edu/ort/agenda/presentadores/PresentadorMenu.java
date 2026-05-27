@@ -30,19 +30,4 @@ public class PresentadorMenu {
 
     }
 
-    @PostMapping("/logout")
-    public Commands logout(HttpSession sesionHttp) {
-        Usuario usuario = (Usuario) sesionHttp.getAttribute("usuarioAgenda");
-        if (usuario != null) {
-            sesionHttp.removeAttribute("usuarioAgenda");
-            sesionHttp.invalidate();
-        }
-
-        // Si el usuario es usuarioAgenda lo saco de la lista de usuarios conectados
-        if (usuario instanceof UsuarioAgenda) {
-            f.desconectarUsuario((UsuarioAgenda) usuario);
-        }
-        return Command.lista(new Command("usuarioNoAutenticado", "login.html"));
-    }
-
 }

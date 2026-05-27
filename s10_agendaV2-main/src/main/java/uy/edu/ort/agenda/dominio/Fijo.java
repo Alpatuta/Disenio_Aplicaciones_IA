@@ -4,9 +4,9 @@ import uy.edu.ort.agenda.excepciones.AgendaException;
 
 public class Fijo extends TipoTelefono {
 
-    public Fijo(String numero) throws AgendaException {
+    public Fijo(String numero) {
         super(numero);
-        validar(numero);
+
     }
 
     @Override

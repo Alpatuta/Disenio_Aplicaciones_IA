@@ -4,9 +4,9 @@ import uy.edu.ort.agenda.excepciones.AgendaException;
 
 public class Celular extends TipoTelefono {
 
-    public Celular(String numero) throws AgendaException {
+    public Celular(String numero) {
         super(numero);
-        validar(numero);
+
     }
 
     @Override

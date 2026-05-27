@@ -11,9 +11,9 @@ public class Contacto {
     @Getter
     private TipoContacto tipoContacto;
 
-    public Contacto(String nombre, String telefono, TipoContacto tipoContacto) throws AgendaException {
+    public Contacto(String nombre, Telefono telefono, TipoContacto tipoContacto) throws AgendaException {
         this.nombre = nombre;
-        this.telefono = new Telefono(telefono, telefono.getTipoTelefono());
+        this.telefono = telefono;
         this.tipoContacto = tipoContacto;
     }
 
@@ -25,10 +25,11 @@ public class Contacto {
             throw new AgendaException("El telefono no puede estar vacio");
         }
 
-        telefono.validar();
-
         if (tipoContacto == null) {
             throw new AgendaException("El tipo de contacto no puede estar vacio");
         }
+
+        telefono.validar();
+
     }
 }
