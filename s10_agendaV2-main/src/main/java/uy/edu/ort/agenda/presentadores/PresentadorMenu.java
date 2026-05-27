@@ -1,23 +1,19 @@
 package uy.edu.ort.agenda.presentadores;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
-import jakarta.servlet.http.HttpSession;
 import uy.edu.ort.agenda.dominio.Usuario;
-import uy.edu.ort.agenda.dominio.UsuarioAgenda;
-import uy.edu.ort.agenda.servicios.fachada.FachadaServicios;
+
 import uy.edu.ort.agenda.utils.Command;
 import uy.edu.ort.agenda.utils.Commands;
 
 @RestController
 @RequestMapping("/menu")
 public class PresentadorMenu {
-
-    private static final FachadaServicios f = FachadaServicios.getInstancia();
 
     @GetMapping("/vistaConectada")
     public Commands inicializarVista(@SessionAttribute(name = "usuarioAgenda", required = false) Usuario usuario) {

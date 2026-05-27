@@ -7,8 +7,6 @@ public class Telefono {
 
     private TipoTelefono tipoTelefono;
 
-    private String tipo;
-
     public Telefono(String numero, TipoTelefono tipoTelefono) throws AgendaException {
         this.numero = numero;
         this.tipoTelefono = tipoTelefono;

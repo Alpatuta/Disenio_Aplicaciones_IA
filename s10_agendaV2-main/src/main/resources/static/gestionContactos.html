@@ -84,7 +84,13 @@
                 });
             });
             vistaContactos.handler('tiposTelefono', (tipos) => {
-                selectTipoTelefono.innerHTML = crearSelect(tipos, 'nombre', 'nombre');
+                selectTipoTelefono.innerHTML = '<option value="">Seleccione un tipo...</option>';
+                tipos.forEach(tipo => {
+                    const option = document.createElement('option');
+                    option.value = tipo.nombre;
+                    option.textContent = tipo.nombre;
+                    selectTipoTelefono.appendChild(option);
+                });
             });
             vistaContactos.handler('agenda', (agenda) => {
                 cantidadContactos.innerText = agenda.cantidadContactos;
