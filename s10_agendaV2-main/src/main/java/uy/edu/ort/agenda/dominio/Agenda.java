@@ -8,6 +8,8 @@ import uy.edu.ort.agenda.excepciones.AgendaException;
 public class Agenda {
     private List<Contacto> contactos;
 
+    private TipoBusqueda tipoBusqueda;
+
     public Agenda() {
         this.contactos = new ArrayList<>();
     }
@@ -25,15 +27,28 @@ public class Agenda {
         return contactos.size();
     }
 
-    public List<Contacto> buscar(String filtro){
-        
-        ArrayList<Contacto> resultado = new ArrayList<Contacto>();
-        if(filtro.isBlank()) return resultado;
-        for(Contacto c:contactos){
-            if(c.getNombre().contains(filtro) || c.getTelefono().getNumero().contains(filtro)){
-                    resultado.add(c);
-            }
+    public List<Contacto> buscar(String filtro) throws AgendaException {
+
+        List<Contacto> resultado = new ArrayList<>();
+
+        if (filtro.isBlank()) {
+            throw new AgendaException("Ingrese un texto de busqueda");
         }
+
+        if ("Numero".equals(filtro)) {
+            tipoBusqueda = new TipoBusquedaNumero(filtro);
+
+            resultado = tipoBusqueda.filtrar(filtro, contactos);
+        } else if ("Nombre".equals(filtro)) {
+            tipoBusqueda = new TipoBusquedaNombre(filtro);
+
+            resultado = tipoBusqueda.filtrar(filtro, contactos);
+        } else {
+            tipoBusqueda = new TipoBusquedaCombinada(filtro);
+
+            resultado = tipoBusqueda.filtrar(filtro, contactos);
+        }
+
         return resultado;
     }
 }
